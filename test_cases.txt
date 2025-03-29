@@ -1,77 +1,85 @@
-Certainly! Below are detailed test cases for the provided Python code, organized into positive, negative, and edge cases. Each test case is formatted with the required structure.
+Here are detailed test cases for the provided Python code `app.py`, as well as the HTML and CSS files `index.html` and `styles.css`. The JSON configuration file is referenced but not directly tested here.
 
-### Positive Test Cases
+### Test Cases for `app.py`
 
-#### Test Case 1
-- **Test Case**: Initialize Game and Display Board
-- **Steps**:
-  1. Call `initialize_game()`
-  2. Call `display_board()` on the returned board
-- **Expected Result**: The board is displayed as a 3x3 grid with all spaces marked as `' '` and no moves made yet.
+#### Test Case 1: Basic Game Functionality
+- **Steps:**
+  1. Create a `GameBoard` instance.
+  2. Create two `Player` instances.
+  3. Simulate a dice roll and move the first player one step on the board.
+  4. Simulate a dice roll and move the second player one step on the board.
+- **Expected Result:**
+  - The first player's position should increase by the dice roll value, without exceeding 100 or being affected by snakes or ladders.
+  - The second player's position should increase similarly.
 
-#### Test Case 2
-- **Test Case**: Valid Move and Switch Player
-- **Steps**:
-  1. Initialize the game
-  2. Make a valid move by calling `make_move()` with a valid position and the current player
-  3. Call `switch_player()` to get the next player
-- **Expected Result**: The move is made on the board, and the player switches correctly.
+#### Test Case 2: Player Reaches End of Board
+- **Steps:**
+  1. Create a `GameBoard` instance.
+  2. Create a `Player` instance at position 95.
+  3. Simulate a dice roll resulting in a move that exceeds 100.
+- **Expected Result:**
+  - The player's final position should be 100, as the board wraps the position back if it exceeds the end.
 
-#### Test Case 3
-- **Test Case**: Winning Condition
-- **Steps**:
-  1. Initialize the game
-  2. Make moves that result in a row, column, or diagonal filled with the same player's symbol
-- **Expected Result**: The game ends, and the correct player is declared the winner.
+#### Test Case 3: Snake Encounter
+- **Steps:**
+  1. Create a `GameBoard` instance.
+  2. Create a `Player` instance at position 31.
+  3. Simulate a dice roll that moves the player to position 32 (starting position of a snake).
+- **Expected Result:**
+  - The player's position should be updated to 10, the end position of the snake at 32.
 
-### Negative Test Cases
+#### Test Case 4: Ladder Encounter
+- **Steps:**
+  1. Create a `GameBoard` instance.
+  2. Create a `Player` instance at position 3.
+  3. Simulate a dice roll that moves the player to position 1 (starting position of a ladder).
+- **Expected Result:**
+  - The player's position should be updated to 38, the end position of the ladder at 1.
 
-#### Test Case 4
-- **Test Case**: Invalid Move (Position Already Occupied)
-- **Steps**:
-  1. Initialize the game
-  2. Make a move at a position
-  3. Try to make another move at the same position
-- **Expected Result**: The move is rejected with a message "Invalid move, try again."
+#### Test Case 5: Play Until Game Ends
+- **Steps:**
+  1. Create a `GameBoard` instance.
+  2. Create two `Player` instances.
+  3. Simulate dice rolls and player moves until one of the players reaches 100.
+- **Expected Result:**
+  - The game should end when one player's position reaches 100, and the winning player should be announced.
 
-#### Test Case 5
-- **Test Case**: Invalid Move (Out of Bounds)
-- **Steps**:
-  1. Initialize the game
-  2. Try to make a move with row or column values greater than 2 or less than 0
-- **Expected Result**: The move is rejected, and the game continues with the next valid move.
+### Test Cases for `index.html` and `styles.css`
 
-### Edge Test Cases
+#### Test Case 6: Initial Page Load
+- **Steps:**
+  1. Load the `index.html` page in a browser.
+- **Expected Result:**
+  - The page should display "Snake and Ladder Game" with a grid representing the game board and a "Roll Dice" button.
+  - The CSS should be applied, making the page visually appealing with a centered layout and a styled grid.
 
-#### Test Case 6
-- **Test Case**: All Moves Made Without a Winner (Draw)
-- **Steps**:
-  1. Initialize the game
-  2. Make moves until the board is full without any winning conditions
-- **Expected Result**: The game ends in a draw, and a message "The game is a draw!" is displayed.
+#### Test Case 7: Button Interaction
+- **Steps:**
+  1. Click the "Roll Dice" button.
+- **Expected Result:**
+  - The dice roll JavaScript function should be triggered (though the actual implementation is not provided, the expectation is that the button click performs an action, such as rolling the dice).
 
-#### Test Case 7
-- **Test Case**: Consecutive Moves by the Same Player
-- **Steps**:
-  1. Initialize the game
-  2. Make two consecutive moves by the same player (first move is valid, second move invalid because it should be the other player's turn)
-- **Expected Result**: The second move is rejected with a message "Invalid move, try again."
+#### Test Case 8: Responsive Design
+- **Steps:**
+  1. Resize the browser window to a smaller size (e.g., mobile size).
+  2. Observe the page layout.
+- **Expected Result:**
+  - The page should be responsive, with the button and the board repositioning or resizing appropriately to fit smaller screens.
 
-### Additional Test Cases
+#### Test Case 9: Grid Layout
+- **Steps:**
+  1. Load the `index.html` page.
+  2. Inspect the #board element.
+- **Expected Result:**
+  - The grid should display 100 cells in a 10x10 layout, each representing a position on the board.
 
-#### Test Case 8
-- **Test Case**: Display Board After Each Move
-- **Steps**:
-  1. Initialize the game
-  2. Make a series of moves
-  3. Check the board's display after each move
-- **Expected Result**: After each move, the board is displayed correctly, reflecting the current state of the game.
+### Test Cases for `static/config.json`
+The JSON file is static and does not require interactive testing. However, you can write unit tests to check if the file structure is correct and the data is as expected.
 
-#### Test Case 9
-- **Test Case**: Incorrect Input Format During Move
-- **Steps**:
-  1. Initialize the game
-  2. Input a move with an incorrect format (e.g., a single number, letters, etc.)
-- **Expected Result**: The game should handle the incorrect input gracefully, possibly asking for input again or displaying an error message.
+#### Test Case 10: JSON File Structure
+- **Steps:**
+  1. Parse the JSON file.
+- **Expected Result:**
+  - The JSON object should contain only two keys, `snakes` and `ladders`, each of which is an object containing specific key-value pairs representing the start and end positions of snakes and ladders.
 
-These test cases cover a wide range of scenarios that ensure the game logic works correctly under various conditions.
+These test cases cover a range of scenarios and should help in verifying that the application works as expected under various conditions.
