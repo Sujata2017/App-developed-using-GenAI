@@ -1,0 +1,77 @@
+Certainly! Below are detailed test cases for the provided Python code, organized into positive, negative, and edge cases. Each test case is formatted with the required structure.
+
+### Positive Test Cases
+
+#### Test Case 1
+- **Test Case**: Initialize Game and Display Board
+- **Steps**:
+  1. Call `initialize_game()`
+  2. Call `display_board()` on the returned board
+- **Expected Result**: The board is displayed as a 3x3 grid with all spaces marked as `' '` and no moves made yet.
+
+#### Test Case 2
+- **Test Case**: Valid Move and Switch Player
+- **Steps**:
+  1. Initialize the game
+  2. Make a valid move by calling `make_move()` with a valid position and the current player
+  3. Call `switch_player()` to get the next player
+- **Expected Result**: The move is made on the board, and the player switches correctly.
+
+#### Test Case 3
+- **Test Case**: Winning Condition
+- **Steps**:
+  1. Initialize the game
+  2. Make moves that result in a row, column, or diagonal filled with the same player's symbol
+- **Expected Result**: The game ends, and the correct player is declared the winner.
+
+### Negative Test Cases
+
+#### Test Case 4
+- **Test Case**: Invalid Move (Position Already Occupied)
+- **Steps**:
+  1. Initialize the game
+  2. Make a move at a position
+  3. Try to make another move at the same position
+- **Expected Result**: The move is rejected with a message "Invalid move, try again."
+
+#### Test Case 5
+- **Test Case**: Invalid Move (Out of Bounds)
+- **Steps**:
+  1. Initialize the game
+  2. Try to make a move with row or column values greater than 2 or less than 0
+- **Expected Result**: The move is rejected, and the game continues with the next valid move.
+
+### Edge Test Cases
+
+#### Test Case 6
+- **Test Case**: All Moves Made Without a Winner (Draw)
+- **Steps**:
+  1. Initialize the game
+  2. Make moves until the board is full without any winning conditions
+- **Expected Result**: The game ends in a draw, and a message "The game is a draw!" is displayed.
+
+#### Test Case 7
+- **Test Case**: Consecutive Moves by the Same Player
+- **Steps**:
+  1. Initialize the game
+  2. Make two consecutive moves by the same player (first move is valid, second move invalid because it should be the other player's turn)
+- **Expected Result**: The second move is rejected with a message "Invalid move, try again."
+
+### Additional Test Cases
+
+#### Test Case 8
+- **Test Case**: Display Board After Each Move
+- **Steps**:
+  1. Initialize the game
+  2. Make a series of moves
+  3. Check the board's display after each move
+- **Expected Result**: After each move, the board is displayed correctly, reflecting the current state of the game.
+
+#### Test Case 9
+- **Test Case**: Incorrect Input Format During Move
+- **Steps**:
+  1. Initialize the game
+  2. Input a move with an incorrect format (e.g., a single number, letters, etc.)
+- **Expected Result**: The game should handle the incorrect input gracefully, possibly asking for input again or displaying an error message.
+
+These test cases cover a wide range of scenarios that ensure the game logic works correctly under various conditions.
