@@ -1,125 +1,254 @@
-# Comprehensive Design Document: Tic Tac Toe Game Script
+# Comprehensive Design Document
 
-## 🧵 User Story 1: Setting Up the Game
-### 🔹 Functional Specifications
-- The script must provide a function to initialize a new game.
-- The game board should start in an empty state with all cells set to a blank space " ".
+## 🧵 User Story 1: As a Game Creator, I want to set up the game board so that players can start playing.
+- 🔹 **Functional Specifications:**
+  - The game board is a 10x10 grid with 100 squares.
+  - Predefined snakes and ladders are placed on the board.
+  - The board has a default layout with specific positions for snakes and ladders.
+  - The board displays the starting and ending positions of each snake and ladder.
+  - The board design is visually appealing and easy to understand.
 
-### 🔧 Technical Specifications
-- A function `initialize_game` will be created to reset the game state.
-- The game state will include a 2D list for the board and a variable to keep track of the current player.
+- 🔧 **Technical Specifications:**
+  - The game board is represented as a 2D array.
+  - Each cell in the array represents a square on the board.
+  - Snakes and ladders are added at predefined positions within the array.
+  - The game board is rendered using a graphical user interface (GUI) or a web page.
+  - The positions of snakes and ladders are stored in a configuration file or database.
 
-### 🏗 Architecture Diagrams
-```mermaid
-sequenceDiagram
+- 🏗 **Architecture Diagrams:**
+
+  ```mermaid
+  sequenceDiagram
+    participant GameCreator
+    participant GameBoard
+    GameCreator->>GameBoard: Initialize Board
+    GameBoard->>GameCreator: Return Board with Snakes and Ladders
+  ```
+
+  ```mermaid
+  graph LR
+      GameCreator -- Initialize Board --> GameBoard
+      GameBoard -- Display Board --> GUI
+  ```
+
+## 🧵 User Story 2: As a Player, I want to roll the dice so that I can move my piece on the game board.
+- 🔹 **Functional Specifications:**
+  - The player can manually trigger a dice roll.
+  - The dice roll outcome is between 1 and 6.
+  - The player's piece moves the number of squares as indicated by the dice roll.
+  - The dice roll is random and fair.
+
+- 🔧 **Technical Specifications:**
+  - The dice roll is implemented using a random number generator.
+  - The dice roll function returns an integer between 1 and 6.
+  - The player's position is updated according to the dice roll outcome.
+  - The movement is animated on the GUI to reflect the dice roll and move.
+
+- 🏗 **Architecture Diagrams:**
+
+  ```mermaid
+  sequenceDiagram
     participant Player
-    participant Game
-    Player->>Game: Call initialize_game()
-    Game-->>Player: Game Initialized
-```
+    participant Dice
+    participant GameBoard
+    Player->>Dice: Roll Dice
+    Dice->>Player: Return Dice Value
+    Player->>GameBoard: Request Move
+    GameBoard->>Player: Update Player Position
+  ```
 
-## 🧵 User Story 2: Displaying the Game Board
-### 🔹 Functional Specifications
-- The script should display the current state of the game board after each move.
-- Each cell should be marked with "X", "O", or " " to represent the current state.
+  ```mermaid
+  graph LR
+      Player -- Roll Dice --> Dice
+      Dice -- Return Value --> GameBoard
+      GameBoard -- Update Position --> Player
+  ```
 
-### 🔧 Technical Specifications
-- A function `display_board` will be created to print the current board state to the console.
-- The function will iterate over the 2D list representing the board and print each cell's content.
+## 🧵 User Story 3: As a Player, I want to move up a ladder so that I can advance faster on the game board.
+- 🔹 **Functional Specifications:**
+  - If the player's piece lands at the bottom of a ladder, it automatically moves to the top of the ladder.
+  - The movement is displayed on the board.
+  - The player is notified of the ladder movement.
 
-### 🏗 Architecture Diagrams
-```mermaid
-graph LR
-    A[display_board()] --> B[Iterate over Board]
-    B --> C[Print Board]
-```
+- 🔧 **Technical Specifications:**
+  - The game board checks if the player's current position is the base of a ladder.
+  - A check is performed against a predefined list of ladders.
+  - If the player lands on a ladder, the player's position is updated to the top of the ladder.
+  - The movement is animated on the GUI to reflect the ladder climb.
 
-## 🧵 User Story 3: Making a Move
-### 🔹 Functional Specifications
-- The script should allow players to input a move by selecting a cell.
-- The script should validate the move to ensure it is within the board's dimensions and that the selected cell is empty.
+- 🏗 **Architecture Diagrams:**
 
-### 🔧 Technical Specifications
-- A function `make_move` will be created to handle player input and validation.
-- The function will check if the selected cell is empty and within the board dimensions before marking it with the player's symbol.
-
-### 🏗 Architecture Diagrams
-```mermaid
-sequenceDiagram
+  ```mermaid
+  sequenceDiagram
+    participant GameBoard
     participant Player
-    participant Game
-    Player->>Game: make_move(row, col)
-    Game-->>Player: Move Validated and Marked
-```
+    GameBoard->>Player: Check for Ladder
+    Player->>GameBoard: Climb Ladder
+    GameBoard->>Player: Update Position
+  ```
 
-## 🧵 User Story 4: Switching Players
-### 🔹 Functional Specifications
-- After each valid move, the game should alternate turns between players.
-- The script should keep track of whose turn it is and display it appropriately.
+  ```mermaid
+  graph LR
+      GameBoard -- Check Position --> Player
+      Player -- Climb Ladder --> GameBoard
+      GameBoard -- Update Position --> Player
+  ```
 
-### 🔧 Technical Specifications
-- A function `switch_player` will be created to toggle between players after a valid move.
-- The function will update a variable tracking the current player.
+## 🧵 User Story 4: As a Player, I want to slide down a snake so that I am penalized when I land on a snake's head.
+- 🔹 **Functional Specifications:**
+  - If the player's piece lands on a snake's head, it automatically slides down to the bottom of the snake.
+  - The movement is displayed on the board.
+  - The player is notified of the snake's slide.
 
-### 🏗 Architecture Diagrams
-```mermaid
-sequenceDiagram
-    participant Game
-    Game->>Game: switch_player()
-    Game-->>Game: Player Switched
-```
+- 🔧 **Technical Specifications:**
+  - The game board checks if the player's current position is the head of a snake.
+  - A check is performed against a predefined list of snakes.
+  - If the player lands on a snake, the player's position is updated to the tail of the snake.
+  - The movement is animated on the GUI to reflect the snake's slide.
 
-## 🧵 User Story 5: Checking for a Win or Draw
-### 🔹 Functional Specifications
-- The script should check for a win condition after each move.
-- The script should also check for a draw if all cells are filled without a win.
+- 🏗 **Architecture Diagrams:**
 
-### 🔧 Technical Specifications
-- A function `check_game_status` will be created to evaluate the game state.
-- The function will check each row, column, and diagonal for a win and the board for a full state to determine a draw.
-
-### 🏗 Architecture Diagrams
-```mermaid
-sequenceDiagram
-    participant Game
-    Game->>Game: check_game_status()
-    Game-->>Game: Return Game State (Win/Drawing/Continue)
-```
-
-## 🧵 User Story 6: Ending the Game
-### 🔹 Functional Specifications
-- The game should halt further moves once a win or draw condition is met.
-- The script should display an appropriate message indicating the game's conclusion.
-
-### 🔧 Technical Specifications
-- The `check_game_status` function will halt the game loop if a win or draw is detected.
-- A function `end_game` will be created to print the result message and end the game loop.
-
-### 🏗 Architecture Diagrams
-```mermaid
-sequenceDiagram
-    participant Game
-    Game->>Game: check_game_status()
-    Game->>Game: end_game(message)
-```
-
-## 🧵 User Story 7: Restarting the Game
-### 🔹 Functional Specifications
-- The script should offer the option to restart the game after it ends.
-- The script should reset the game state to its initial state and allow a new game to begin.
-
-### 🔧 Technical Specifications
-- After the game ends, the script will prompt the user to restart the game.
-- If the user chooses to restart, the script will call the `initialize_game` function to reset the game state.
-
-### 🏗 Architecture Diagrams
-```mermaid
-sequenceDiagram
+  ```mermaid
+  sequenceDiagram
+    participant GameBoard
     participant Player
-    participant Game
-    Game->>Player: Game Ended
-    Player->>Game: Restart Game?
-    Game->>Game: initialize_game()
-```
+    GameBoard->>Player: Check for Snake
+    Player->>GameBoard: Slide Down
+    GameBoard->>Player: Update Position
+  ```
 
-This document outlines the functional and technical aspects of each user story, providing a clear path for the development of a simple Tic Tac Toe game script in Python. Each section is designed to guide the developers in implementing the game with detailed specifications and diagrams for clarity.
+  ```mermaid
+  graph LR
+      GameBoard -- Check Position --> Player
+      Player -- Slide Down --> GameBoard
+      GameBoard -- Update Position --> Player
+  ```
+
+## 🧵 User Story 5: As a Player, I want to know when I win the game so that I can celebrate my victory.
+- 🔹 **Functional Specifications:**
+  - The game ends when a player reaches the final square (100) on the board.
+  - The winning player is announced.
+  - The game displays a message or animation to indicate the end of the game.
+
+- 🔧 **Technical Specifications:**
+  - The game checks if the player's position is 100.
+  - A win condition is triggered and the game state is updated.
+  - A notification is sent to the player indicating victory.
+  - The GUI or web page displays a congratulatory message and an end-game animation.
+
+- 🏗 **Architecture Diagrams:**
+
+  ```mermaid
+  sequenceDiagram
+    participant GameBoard
+    participant Player
+    GameBoard->>Player: Check Win Condition
+    Player->>GameBoard: Win Condition Met?
+    GameBoard->>Player: Announce Winner
+  ```
+
+  ```mermaid
+  graph LR
+      GameBoard -- Check Win Condition --> Player
+      Player -- Announce Winner --> GameBoard
+      GameBoard -- Display End Message --> GUI
+  ```
+
+## 🧵 User Story 6: As a Game Creator, I want to design the board with customization options so that the game can be more engaging.
+- 🔹 **Functional Specifications:**
+  - The game allows customization of the number of snakes and ladders.
+  - Snakes and ladders can be positioned differently on the board.
+  - The game can be configured with different themes (e.g., jungle theme, space theme).
+
+- 🔧 **Technical Specifications:**
+  - Customization options are stored in a configuration file or database.
+  - An editor or settings panel allows the game creator to add or remove snakes and ladders.
+  - Themes are implemented as different sets of assets that can be swapped.
+  - The game board is dynamically updated based on the selected theme and customization options.
+
+- 🏗 **Architecture Diagrams:**
+
+  ```mermaid
+  sequenceDiagram
+    participant GameCreator
+    participant GameBoard
+    GameCreator->>GameBoard: Set Customization
+    GameBoard->>GameCreator: Apply Customization
+  ```
+
+  ```mermaid
+  graph LR
+      GameCreator -- Set Customization --> GameBoard
+      GameBoard -- Apply Customization --> Display
+  ```
+
+## 🧵 User Story 7: As a Player, I want to save my progress in the game so that I can continue from where I last left.
+- 🔹 **Functional Specifications:**
+  - The game provides an option to save the current state of the game.
+  - The game state can be loaded to resume the game from the saved point.
+  - The save and load features are user-friendly and intuitive.
+
+- 🔧 **Technical Specifications:**
+  - Game state is serialized and saved to a file or database.
+  - A function to save the current state, including player positions and board state, is implemented.
+  - A function to load the saved state and restore the game is implemented.
+  - The saved state is securely stored and accessible only to the player who saved it.
+
+- 🏗 **Architecture Diagrams:**
+
+  ```mermaid
+  sequenceDiagram
+    participant Player
+    participant GameBoard
+    Player->>GameBoard: Save State
+    GameBoard->>Player: Confirm Save
+    Player->>GameBoard: Load State
+    GameBoard->>Player: Restore State
+  ```
+
+  ```mermaid
+  graph LR
+      Player -- Save State --> GameBoard
+      GameBoard -- Confirm Save --> Player
+      Player -- Load State --> GameBoard
+      GameBoard -- Restore State --> Player
+  ```
+
+## 🧵 User Story 8: As a Player, I want to play against other players so that the game is more interactive.
+- 🔹 **Functional Specifications:**
+  - The game supports multiplayer mode.
+  - Players can join and play the game simultaneously.
+  - The game board updates in real-time for all players.
+
+- 🔧 **Technical Specifications:**
+  - The game implements a multiplayer system using a server-client architecture.
+  - Each player's actions are broadcast to all connected clients.
+  - Real-time updates are managed by a server that synchronizes the game state.
+  - The server and clients communicate using WebSockets or a similar real-time communication protocol.
+
+- 🏗 **Architecture Diagrams:**
+
+  ```mermaid
+  sequenceDiagram
+    participant Player
+    participant Server
+    participant GameBoard
+    Player->>Server: Join Game
+    Server->>Player: Confirm Join
+    Player->>Server: Action (Roll Dice)
+    Server->>GameBoard: Update Board
+    GameBoard->>Server: Broadcast Update
+    Server->>Player: Update Player View
+  ```
+
+  ```mermaid
+  graph LR
+      Player -- Join Game --> Server
+      Server -- Confirm Join --> GameBoard
+      Player -- Action --> Server
+      Server -- Update Board --> GameBoard
+      GameBoard -- Broadcast Update --> Server
+      Server -- Update Player View --> Player
+  ```
+
+This document provides a structured and detailed design for each user story, ensuring that the Snake and Ladder game not only meets the original requirements but also adds engaging features and functionality for a better user experience.
