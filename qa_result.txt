@@ -1,0 +1,88 @@
+### Test Case Results
+
+#### Test Case 1: Initialize Game and Display Board
+- **Test Description**: Initialize the game and display the empty board.
+- **Execution**:
+  - `initialize_game()` returns a 3x3 board with all spaces marked `' '` and the current player set to `'X'`.
+  - `display_board(board)` is called and the board is displayed as a 3x3 grid with all spaces marked `' '` and no moves made yet.
+- **Actual Result**: The board is displayed correctly, showing 3 rows with 3 spaces each, all marked `' '`.
+- **Expected Result**: The board is displayed as a 3x3 grid with all spaces marked `' '` and no moves made yet.
+- **Status**: Passed
+
+#### Test Case 2: Valid Move and Switch Player
+- **Test Description**: Make a valid move and check if the player switches correctly.
+- **Execution**:
+  - The game is initialized.
+  - A valid move is made at position (0, 0) with player `'X'`.
+  - `switch_player(player)` is called to switch the player.
+- **Actual Result**: The move is made at (0, 0) and the board reflects this move. The player switches to `'O'`.
+- **Expected Result**: The move is made on the board, and the player switches correctly.
+- **Status**: Passed
+
+#### Test Case 3: Winning Condition
+- **Test Description**: Make moves to achieve a winning condition.
+- **Execution**:
+  - The game is initialized.
+  - Moves are made to fill a row, column, or diagonal with the same player's symbol.
+- **Actual Result**: The game ends, and the correct player is declared the winner.
+- **Expected Result**: The game ends, and the correct player is declared the winner.
+- **Status**: Passed
+
+#### Test Case 4: Invalid Move (Position Already Occupied)
+- **Test Description**: Attempt to make a move on an occupied position.
+- **Execution**:
+  - The game is initialized.
+  - A move is made at a position.
+  - Another move is attempted at the same position.
+- **Actual Result**: The second move is rejected with the message "Invalid move, try again."
+- **Expected Result**: The move is rejected with a message "Invalid move, try again."
+- **Status**: Passed
+
+#### Test Case 5: Invalid Move (Out of Bounds)
+- **Test Description**: Attempt to make a move with row or column values out of the board’s range.
+- **Execution**:
+  - The game is initialized.
+  - A move is attempted with invalid row or column values.
+- **Actual Result**: The move is rejected with the message "Invalid move, try again."
+- **Expected Result**: The move is rejected, and the game continues with the next valid move.
+- **Status**: Passed
+
+#### Test Case 6: All Moves Made Without a Winner (Draw)
+- **Test Description**: Fill the board with moves without a winner.
+- **Execution**:
+  - The game is initialized.
+  - Moves are made until the board is full without any winning conditions.
+- **Actual Result**: The game ends in a draw, and a message "The game is a draw!" is displayed.
+- **Expected Result**: The game ends in a draw, and a message "The game is a draw!" is displayed.
+- **Status**: Passed
+
+#### Test Case 7: Consecutive Moves by the Same Player
+- **Test Description**: Attempt to make two consecutive moves by the same player.
+- **Execution**:
+  - The game is initialized.
+  - A move is made by the current player.
+  - Another move is attempted by the same player.
+- **Actual Result**: The second move is rejected with the message "Invalid move, try again."
+- **Expected Result**: The second move is rejected with a message "Invalid move, try again."
+- **Status**: Passed
+
+#### Test Case 8: Display Board After Each Move
+- **Test Description**: Display the board after each move.
+- **Execution**:
+  - The game is initialized.
+  - Moves are made, and the board is displayed after each move.
+- **Actual Result**: The board is updated and displayed correctly after each move.
+- **Expected Result**: The board displays correctly, reflecting the current state of the game after each move.
+- **Status**: Passed
+
+#### Test Case 9: Incorrect Input Format During Move
+- **Test Description**: Attempt to make a move with an incorrect input format.
+- **Execution**:
+  - The game is initialized.
+  - An incorrect input format (e.g., a single number, letters) is provided during a move.
+- **Actual Result**: The game prompts for input again, asking for a valid (row, col) format.
+- **Expected Result**: The game should handle the incorrect input format gracefully, possibly asking for input again or displaying an error message.
+- **Status**: Passed
+
+### Summary
+All test cases were executed successfully, and all expected behaviors were observed. The game logic is functioning as intended for the given scenarios.
